@@ -3176,6 +3176,7 @@ const run = (callback) => {
   const password = core.getInput("password");
   const clientKey = core.getInput("client_key");
   const tlsAuthKey = core.getInput("tls_auth_key");
+  const tlsCryptV1Key = core.getInput("tls_crypt_v1_key");
   const tlsCryptV2Key = core.getInput("tls_crypt_v2_key");
 
   if (!fs.existsSync(configFile)) {
@@ -3201,6 +3202,10 @@ const run = (callback) => {
   if (tlsAuthKey) {
     fs.appendFileSync(configFile, "tls-auth ta.key 1\n");
     fs.writeFileSync("ta.key", tlsAuthKey, { mode: 0o600 });
+  }
+  if (tlsCryptV1Key) {
+    fs.appendFileSync(configFile, "tls-crypt tcv1.key 1\n");
+    fs.writeFileSync("tcv1.key", tlsCryptV1Key, { mode: 0o600 });
   }
   if (tlsCryptV2Key) {
     fs.appendFileSync(configFile, "tls-crypt-v2 tcv2.key 1\n");
